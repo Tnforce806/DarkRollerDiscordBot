@@ -1,4 +1,4 @@
-export default { 
+module.exports = { 
 	name: "coinflip",
 	desc: "Flip a coin!",
 

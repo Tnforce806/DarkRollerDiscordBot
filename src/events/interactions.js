@@ -1,7 +1,6 @@
-import { Events } from 'discord.js';
+const { Events } = require('discord.js');
 
-export default
-{
+module.exports = {
 	name: Events.InteractionCreate,
 
 	async execute(interaction) {
