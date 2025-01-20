@@ -1,9 +1,12 @@
 module.exports = { 
-	name: "coinflip",
-	desc: "Flip a coin!",
+	name: 'coinflip',
+	desc: 'Flip a coin!',
 
-	async execute() {
+	async execute(interaction) {
+		console.log('asdf');
 		const rNum = Math.random() < 0.5 ? 1 : 2;
-		console.log(rNum)
+		console.log(rNum);
+
+		interaction.reply('e');
 	}
- }
+ };
