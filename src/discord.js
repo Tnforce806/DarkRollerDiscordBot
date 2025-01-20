@@ -1,7 +1,7 @@
-import { Client, Collection, GatewayIntentBits, REST, Routes } from 'discord.js';
-import { createMsg, createCmd } from './builder.js';
-import config from '../token.json' with { type: 'json' };
-import fs from 'fs';
+const { Client, Collection, GatewayIntentBits, REST, Routes } = require('discord.js');
+const { createMsg, createCmd } = require('./builder.js');
+const config = require('../token.json');
+const fs = require('fs');
 
 async function checkCmds(client)
 {
@@ -73,4 +73,4 @@ class DC {
 	}
 }
 
-export default DC;
+module.exports = DC;

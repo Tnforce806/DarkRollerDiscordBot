@@ -1,4 +1,4 @@
-import { EmbedBuilder, SlashCommandBuilder, PermissionFlagsBits } from 'discord.js';
+const { EmbedBuilder, SlashCommandBuilder, PermissionFlagsBits } = require('discord.js');
 
 function createMsg({ color, title, desc, fields, icon, image, footer, footerIcon, timestamp }) {
 	const embed = new EmbedBuilder();
@@ -89,8 +89,7 @@ function createCmd({ name, desc, options = [], permissions = [], execute }) {
 	};
 }
 
-export 
-{
-	createMsg,
-	createCmd
+module.exports = {
+    createMsg,
+    createCmd
 };
