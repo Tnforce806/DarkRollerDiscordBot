@@ -1,4 +1,4 @@
-const Discord = require('./src/discord.js');
+import Discord from './src/discord.js';
 
 async function start() {
   const discord = new Discord();
