@@ -1,9 +1,12 @@
-module.exports = { 
-	name: "coinflip",
-	desc: "Flip a coin!",
+import { createMsg } from '../builder.js'
 
-	async execute() {
+export default { 
+	name: 'coinflip',
+	desc: 'Flip a coin!',
+
+	async execute(interaction) {
 		const rNum = Math.random() < 0.5 ? 1 : 2;
-		console.log(rNum)
+		
+		interaction.reply({ embeds: [createMsg({ title: 'Coin Flip', desc: `Your coin landed on **${rNum === 1 ? 'Heads' : 'Tails'}**!` })] })
 	}
- }
+ };

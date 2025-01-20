@@ -1,15 +1,8 @@
-const Discord = require('./discord.js');
+import Discord from './src/discord.js';
 
-class Instance {
-	constructor() {
-		this.discord = new Discord();
-	}
-	
-	async start() {
-		await this.discord.init();
-	}
+async function start() {
+  const discord = new Discord();
+  await discord.init();
 }
 
-const instance = new Instance();
-
-instance.start();
+start();
