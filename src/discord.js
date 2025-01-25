@@ -53,7 +53,7 @@ class DC {
 		this.client.on('ready', async () => {
 			console.log('Coin Flip Bot is online!');
 			const channel = this.client.channels.cache.get('1329637077339603059');
-			channel.send({ embeds: [createMsg({ desc: '**Coinflip Bot is online!**' })] });
+			channel.send({ embeds: [createMsg({ desc: '**Bot is online!**' })] });
 		});
 	}
 }

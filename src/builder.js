@@ -1,4 +1,4 @@
-import { EmbedBuilder, SlashCommandBuilder, PermissionFlagsBits } from 'discord.js';
+import { EmbedBuilder, SlashCommandBuilder, PermissionFlagsBits, ActionRowBuilder, ButtonBuilder, ButtonStyle } from 'discord.js';
 
 function createMsg({ color, title, desc, fields, icon, image, footer, footerIcon, timestamp }) {
 	const embed = new EmbedBuilder();
@@ -88,8 +88,47 @@ function createCmd({ name, desc, options = [], permissions = [], execute }) {
 		permissions
 	};
 }
+const styles = 
+{
+    Blue: ButtonStyle.Primary,
+    Gray: ButtonStyle.Secondary,
+    Green: ButtonStyle.Success,
+    Red: ButtonStyle.Danger
+};
+
+function createButtons({ id, label, style, url }) {
+    if (typeof style === 'boolean') style = style ? 'Green' : 'Red';
+
+    if (url) {
+        return new ButtonBuilder()
+            .setLabel(label)
+            .setURL(url)
+            .setStyle(ButtonStyle.Link);
+    }
+
+    return new ButtonBuilder()
+        .setCustomId(id)
+        .setLabel(label)
+        .setStyle(styles[style]);
+}
+
+function createRow(components) {
+    const actionRow = new ActionRowBuilder();
+
+    components.forEach((config) => {
+        if (config.label) {
+            actionRow.addComponents(createButtons(config));
+        }
+        else if (config.placeholder && config.options) {
+            actionRow.addComponents(createSelectMenu(config));
+        }
+    });
+
+    return actionRow;
+}
 
 export {
     createMsg,
-    createCmd
+    createCmd,
+	createRow
 };
