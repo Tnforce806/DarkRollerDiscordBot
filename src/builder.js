@@ -3,7 +3,7 @@ import { EmbedBuilder, SlashCommandBuilder, PermissionFlagsBits, ActionRowBuilde
 function createMsg({ color, title, desc, fields, icon, image, footer, footerIcon, timestamp }) {
 	const embed = new EmbedBuilder();
 
-	if (color) embed.setColor(color); else embed.setColor('ff6ec7');
+	if (color) embed.setColor(color); else embed.setColor('000000');
 	if (title) embed.setTitle(title);
 	if (desc) embed.setDescription(desc);
 	if (icon) embed.setThumbnail(icon);

@@ -7,47 +7,66 @@ export default {
 	desc: "Flip a coin!",
 
 	async execute(interaction) {
-		const rNum = Math.random() < 0.5 ? 1 : 2;
-		const coinFace = rNum === 1 ? 'Heads' : 'Tails'
+		const rNum = Math.random() < 0.5 ? 1 : 2; 
 		
-		const row = createRow([
-			{ id: 'heads', label: 'Heads', style: 'Green' },
-			{ id: 'tails', label: 'Tails', style: 'Red' }
-		])
+		const Heads = new ButtonBuilder()
+			.setCustomId('heads')
+			.setLabel('Heads')
+			.setStyle(ButtonStyle.Primary); //Use Emojis if possible
 
-		var response = await interaction.reply({ embeds: [createMsg({ title: 'Coin Flip', desc: 'Heads or Tails?' })], components: [row], withResponse: true })
+		const Tails = new ButtonBuilder()
+		.setCustomId('tails')
+		.setLabel('Tails')
+		.setStyle(ButtonStyle.Primary); //Use Emojis if possible
 
-		let choice = ""
+		const row = new ActionRowBuilder()
+    		.addComponents(Heads, Tails);
+
+		var response = await interaction.reply({ embeds: [createMsg({ title: 'Coin Flip', desc: '@ Choose Heads or Tails.' })], components: [row], withResponse: true })
+
+		// Data Collection 
+		var choice = ""
 
 		const collectorFilter = i => i.user.id === interaction.user.id;
 		try {
 			const confirmation = await response.resource.message.awaitMessageComponent({ filter: collectorFilter, time: 60_000});
 
 			if (confirmation.customId === "heads") {
-				choice = 1
+				choice = "heads"
 			}
 			else if (confirmation.customId === "tails") {
-				choice = 2
+				choice = "tails"
 			}
 			
 			if (rNum === 1) {
-				if (choice === 1) {
-					await interaction.editReply({ embeds: [createMsg({ title: 'You Win!', desc: `Your coin landed on **${coinFace}**!` }) ], components: [] })
+				if (choice === "heads") {
+					await interaction.deferReply();
+					await interaction.editReply({ embeds: [createMsg({ title: 'Coin Flip', desc: `Your coin landed on **${rNum === 1 ? 'Heads' : 'Tails'}**! You Win!` }) ], components: [] })
 				}
 				else {
-					await interaction.editReply({ embeds: [createMsg({ title: 'You Lose!', desc: `Your coin landed on **${coinFace}**!` }) ], components: [] })
+					await interaction.deferReply();
+					await interaction.editReply({ embeds: [createMsg({ title: 'Coin Flip', desc: `Your coin landed on **${rNum === 1 ? 'Heads' : 'Tails'}**! You Lose!` }) ], components: [] })
 				}
 			} else if (rNum === 2) {
-				if (choice === 2) {
-					await interaction.editReply({ embeds: [createMsg({ title: 'You Win!', desc: `Your coin landed on **${coinFace}**!` }) ], components: [] })
+				if (choice === "tails") {
+					await interaction.deferReply();
+					await interaction.editReply({ embeds: [createMsg({ title: 'Coin Flip', desc: `Your coin landed on **${rNum === 1 ? 'Heads' : 'Tails'}**! You Win!` }) ], components: [] })
 				}
 				else {
-					await interaction.editReply({ embeds: [createMsg({ title: 'You Lose!', desc: `Your coin landed on **${coinFace}**!` }) ], components: [] })
+					await interaction.deferReply();
+					await interaction.editReply({ embeds: [createMsg({ title: 'Coin Flip', desc: `Your coin landed on **${rNum === 1 ? 'Heads' : 'Tails'}**! You Lose!` }) ], components: [] })
 				}
 			}
-		} catch (e) {
-			await interaction.editReply({ content: '**You didn\'t pick a side :(**', components: [], embeds: [] });
+		} catch {
+			await interaction.editReply({ content: 'Input not received within 1 minute, cancelling', components: [], embeds: [] });
 		}
 	}
 
 }
+
+//createMsg({ title: 'Coin Flip', desc: `Your coin landed on **${rNum === 1 ? 'Heads' : 'Tails'}**!` }) 
+// DW ABOUT THIS
+
+
+
+
